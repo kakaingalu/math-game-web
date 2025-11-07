@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MathGameWeb</title>
-    <base href="/" />
+    <base href="/math-game-web/" />
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css" />
     <link rel="stylesheet" href="css/app.css" />
     <link rel="icon" type="image/png" href="favicon.png" />
@@ -42,6 +42,7 @@
             osc.stop(ctx.currentTime + duration / 1000);
         };
         </script>
-</body>
-
+        <script>window.playBeep = (frequency, duration) => { /* your beep code */ };</script>
+        <!-- Add this line -->
+        <script>document.write('<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>')</script></body>
 </html>
