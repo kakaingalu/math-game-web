@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ZQWCEGZu/jDDzQbynFdEO6tn44sA6rXFPFXNHwg6QXhGwClxtOm1h7LhtsPdNGDSN1gcvEpMIYXtLjSN11q49w==",
+  "dgSpecHash": "9eA/RWqgLM/NE9iOxM+MuthHHAr1OthQkoor/NCGOGgiRUyFwcABhUu+HCuVAds0ottLQsylPE3LuZ6muS6dfQ==",
   "success": true,
   "projectFilePath": "/home/kochela/MathGameWeb/MathGameWeb.csproj",
   "expectedPackageFiles": [
@@ -29,7 +29,6 @@
     "/home/kochela/.nuget/packages/microsoft.extensions.primitives/8.0.0/microsoft.extensions.primitives.8.0.0.nupkg.sha512",
     "/home/kochela/.nuget/packages/microsoft.jsinterop/8.0.21/microsoft.jsinterop.8.0.21.nupkg.sha512",
     "/home/kochela/.nuget/packages/microsoft.jsinterop.webassembly/8.0.21/microsoft.jsinterop.webassembly.8.0.21.nupkg.sha512",
-    "/home/kochela/.nuget/packages/microsoft.net.illink.tasks/8.0.21/microsoft.net.illink.tasks.8.0.21.nupkg.sha512",
     "/home/kochela/.nuget/packages/microsoft.net.sdk.webassembly.pack/8.0.21/microsoft.net.sdk.webassembly.pack.8.0.21.nupkg.sha512",
     "/home/kochela/.nuget/packages/system.io.pipelines/8.0.0/system.io.pipelines.8.0.0.nupkg.sha512",
     "/home/kochela/.nuget/packages/microsoft.netcore.app.runtime.mono.browser-wasm/8.0.21/microsoft.netcore.app.runtime.mono.browser-wasm.8.0.21.nupkg.sha512"

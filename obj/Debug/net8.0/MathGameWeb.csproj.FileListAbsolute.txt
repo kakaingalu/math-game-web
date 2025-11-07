@@ -618,6 +618,7 @@
 /home/kochela/MathGameWeb/obj/Debug/net8.0/MathGameWeb.AssemblyInfo.cs
 /home/kochela/MathGameWeb/obj/Debug/net8.0/MathGameWeb.csproj.CoreCompileInputs.cache
 /home/kochela/MathGameWeb/obj/Debug/net8.0/MathGameWeb.MvcApplicationPartsAssemblyInfo.cache
+/home/kochela/MathGameWeb/obj/Debug/net8.0/MathGameWeb.sourcelink.json
 /home/kochela/MathGameWeb/obj/Debug/net8.0/webcil/Blazored.LocalStorage.wasm
 /home/kochela/MathGameWeb/obj/Debug/net8.0/webcil/Microsoft.AspNetCore.Authorization.wasm
 /home/kochela/MathGameWeb/obj/Debug/net8.0/webcil/Microsoft.AspNetCore.Components.wasm
