@@ -1,0 +1,229 @@
+@page "/"
+@using System.Timers
+@using System.Text.Json
+@using MathGameWeb.Services
+@inject IJSRuntime JSRuntime
+@inject LocalStorageService LocalStorage
+
+<PageTitle>Math Master Challenge!</PageTitle>
+
+<div class="container">
+    <h1>Math Master Challenge!</h1>
+
+    @if (!gameStarted)
+    {
+        <div class="input-section">
+            <label>Name:</label>
+            <input @bind="playerName" placeholder="Enter your name" class="name-input" />
+
+            <div class="difficulty-buttons">
+                <button class="btn btn-easy @difficultyClassEasy" @onclick="() => SelectDifficulty(1)">Easy (1-10)</button>
+                <button class="btn btn-medium @difficultyClassMedium" @onclick="() => SelectDifficulty(2)">Medium (1-15)</button>
+                <button class="btn btn-hard @difficultyClassHard" @onclick="() => SelectDifficulty(3)">Hard (1-20)</button>
+            </div>
+
+            <button class="btn btn-start" @onclick="StartGame" disabled="@(!isDifficultySelected)">Start Game!</button>
+        </div>
+
+        <div class="high-score">
+            <p>High Score: @highScore by @highScoreName</p>
+        </div>
+    }
+    else
+    {
+        <div class="game-section">
+            <div class="scores">
+                <span>Score: @score</span>
+                <span>Time: @secondsLeft s</span>
+            </div>
+
+            <h2 id="question">@questionText</h2>
+
+            <div class="answer-section">
+                <input @bind="userAnswer" @bind:event="oninput" placeholder="Answer" class="answer-input" @onkeydown="HandleKeyDown" />
+                <button class="btn btn-submit" @onclick="CheckAnswer" disabled="@(!gameRunning)">Submit</button>
+            </div>
+
+            <p id="status" class="@statusClass">@statusText</p>
+        </div>
+    }
+</div>
+
+@code {
+    private string playerName = "Player";
+    private int score = 0;
+    private int secondsLeft = 60;
+    private bool gameRunning = false;
+    private bool gameStarted = false;
+    private bool isDifficultySelected = false;
+    private string questionText = "Choose difficulty & Start!";
+    private string userAnswer = "";
+    private string statusText = "";
+    private string statusClass = "";
+    private int correctAnswer;
+    private string highScoreName = "Nobody";
+    private int highScore = 0;
+    private Random rand = new();
+    private int maxNumber = 10;
+    private bool allowMultiply = false;
+    private bool allowDivide = false;
+
+    private string difficultyClassEasy = "";
+    private string difficultyClassMedium = "";
+    private string difficultyClassHard = "";
+
+    protected override async Task OnInitializedAsync()
+    {
+        await LoadHighScore();
+    }
+
+    private void SelectDifficulty(int level)
+    {
+        difficultyClassEasy = difficultyClassMedium = difficultyClassHard = "";
+        isDifficultySelected = true;
+
+        switch (level)
+        {
+            case 1:
+                maxNumber = 10; allowMultiply = false; allowDivide = false;
+                difficultyClassEasy = "selected";
+                questionText = "Easy Mode: + and - only";
+                break;
+            case 2:
+                maxNumber = 15; allowMultiply = true; allowDivide = false;
+                difficultyClassMedium = "selected";
+                questionText = "Medium Mode: + - ×";
+                break;
+            case 3:
+                maxNumber = 20; allowMultiply = true; allowDivide = true;
+                difficultyClassHard = "selected";
+                questionText = "Hard Mode: + - × ÷";
+                break;
+        }
+    }
+
+    private async Task StartGame()
+    {
+        gameStarted = true;
+        score = 0;
+        secondsLeft = 60;
+        gameRunning = true;
+        userAnswer = "";
+        statusText = "";
+        StateHasChanged();
+
+        questionText = "3..."; StateHasChanged(); await Task.Delay(1000);
+        questionText = "2..."; StateHasChanged(); await Task.Delay(1000);
+        questionText = "1... GO!"; StateHasChanged(); await Task.Delay(1000);
+        questionText = "Ready!";
+
+        StartTimer();
+        AskQuestion();
+    }
+
+    private void StartTimer()
+    {
+        var timer = new Timer(1000);
+        timer.Elapsed += async (s, e) =>
+        {
+            secondsLeft--;
+            if (secondsLeft <= 0)
+            {
+                timer.Dispose();
+                await InvokeAsync(EndGame);
+            }
+            await InvokeAsync(StateHasChanged);
+        };
+        timer.Start();
+    }
+
+    private void AskQuestion()
+    {
+        if (!gameRunning) return;
+
+        int a = rand.Next(1, maxNumber + 1);
+        int b = rand.Next(1, maxNumber + 1);
+        int maxOp = allowDivide ? 4 : allowMultiply ? 3 : 2;
+        int op = rand.Next(1, maxOp + 1);
+        string symbol = op switch { 1 => "+", 2 => "-", 3 => "×", _ => "÷" };
+
+        if (op == 4)
+        {
+            int[] divs = {1,2,3,4,5,6,8,9,10};
+            b = divs[rand.Next(divs.Length)];
+            a = b * rand.Next(1, maxNumber + 1);
+        }
+
+        correctAnswer = op switch { 1 => a + b, 2 => a - b, 3 => a * b, _ => a / b };
+        questionText = $"{a} {symbol} {b} = ?";
+        StateHasChanged();
+    }
+
+    private void HandleKeyDown(KeyboardEventArgs e)
+    {
+        if (e.Key == "Enter" && gameRunning)
+            CheckAnswer();
+    }
+
+    private void CheckAnswer()
+    {
+        if (!gameRunning) return;
+
+        if (int.TryParse(userAnswer, out int answer) && answer == correctAnswer)
+        {
+            score++;
+            statusText = "Correct!";
+            statusClass = "status-correct";
+            PlaySound(true);
+            userAnswer = "";
+            AskQuestion();
+        }
+        else
+        {
+            statusText = $"Wrong! ({correctAnswer})";
+            statusClass = "status-wrong";
+            PlaySound(false);
+            userAnswer = "";
+        }
+        StateHasChanged();
+    }
+
+    private async Task EndGame()
+    {
+        gameRunning = false;
+        questionText = $"TIME'S UP! Final: {score}";
+        statusText = "";
+
+        if (score > highScore)
+        {
+            highScore = score;
+            highScoreName = playerName;
+            await SaveHighScore();
+        }
+
+        await JSRuntime.InvokeVoidAsync("alert", $"Game Over!\nScore: {score}\nHigh: {highScore} by {highScoreName}");
+        StateHasChanged();
+    }
+
+    private async Task LoadHighScore()
+    {
+        var data = await LocalStorage.GetItemAsync<(string name, int score)>("highScore");
+        if (data != default)
+        {
+            highScoreName = data.name;
+            highScore = data.score;
+        }
+    }
+
+    private async Task SaveHighScore()
+    {
+        await LocalStorage.SetItemAsync("highScore", (highScoreName, highScore));
+    }
+
+    private void PlaySound(bool correct)
+    {
+        var freq = correct ? 800 : 400;
+        var dur = correct ? 200 : 300;
+        JSRuntime.InvokeVoidAsync("playBeep", freq, dur);
+    }
+}

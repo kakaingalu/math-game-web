@@ -1,0 +1,61 @@
+{
+  "Files": [
+    {
+      "Id": "/home/kochela/MathGameWeb/bin/Debug/net8.0/wwwroot/_framework/blazor.webassembly.js",
+      "PackagePath": "staticwebassets/_framework/blazor.webassembly.js"
+    },
+    {
+      "Id": "/home/kochela/MathGameWeb/obj/Debug/net8.0/compressed/66wv4qoc0v.gz",
+      "PackagePath": "staticwebassets/_framework/blazor.webassembly.js.gz"
+    },
+    {
+      "Id": "/home/kochela/MathGameWeb/obj/Debug/net8.0/scopedcss/bundle/MathGameWeb.styles.css",
+      "PackagePath": "staticwebassets/MathGameWeb.styles.css"
+    },
+    {
+      "Id": "/home/kochela/MathGameWeb/wwwroot/css/app.css",
+      "PackagePath": "staticwebassets/css/app.css"
+    },
+    {
+      "Id": "/home/kochela/MathGameWeb/wwwroot/css/bootstrap/bootstrap.min.css",
+      "PackagePath": "staticwebassets/css/bootstrap/bootstrap.min.css"
+    },
+    {
+      "Id": "/home/kochela/MathGameWeb/wwwroot/css/bootstrap/bootstrap.min.css.map",
+      "PackagePath": "staticwebassets/css/bootstrap/bootstrap.min.css.map"
+    },
+    {
+      "Id": "/home/kochela/MathGameWeb/wwwroot/favicon.png",
+      "PackagePath": "staticwebassets/favicon.png"
+    },
+    {
+      "Id": "/home/kochela/MathGameWeb/wwwroot/icon-192.png",
+      "PackagePath": "staticwebassets/icon-192.png"
+    },
+    {
+      "Id": "/home/kochela/MathGameWeb/wwwroot/index.html",
+      "PackagePath": "staticwebassets/index.html"
+    },
+    {
+      "Id": "/home/kochela/MathGameWeb/wwwroot/sample-data/weather.json",
+      "PackagePath": "staticwebassets/sample-data/weather.json"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.MathGameWeb.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.build.MathGameWeb.props",
+      "PackagePath": "build\\MathGameWeb.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.MathGameWeb.props",
+      "PackagePath": "buildMultiTargeting\\MathGameWeb.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.MathGameWeb.props",
+      "PackagePath": "buildTransitive\\MathGameWeb.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
